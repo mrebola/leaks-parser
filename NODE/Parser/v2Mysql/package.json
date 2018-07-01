@@ -1,0 +1,23 @@
+{
+  "name": "breaches_parser",
+  "version": "1.0.0",
+  "description": "",
+  "main": "parser.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cli-progress": "^2.0.0",
+    "fs-extra": "^6.0.1",
+    "mysql": "^2.15.0",
+    "mysql2": "^1.5.3",
+    "progress": "^2.0.0",
+    "progress-string": "^1.2.2",
+    "recursive-readdir": "^2.2.2",
+    "split2": "^2.2.0",
+    "sqlstring": "^2.3.1",
+    "through2": "^2.0.3"
+  }
+}
