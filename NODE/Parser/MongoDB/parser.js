@@ -5,9 +5,10 @@ const { Writable } = require('stream')
 const through2 = require('through2')
 const SqlString = require('sqlstring')
 const CliProgress = require('cli-progress')
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
 
 const ACCOUNTS_QTY = 1400553901
-let connection = null
 let processedFiles = 0
 let processedAccs = 0
 let bar = null
@@ -44,16 +45,17 @@ class AccWriter extends Writable {
     // console.log('SAVE: ', acc, this.pending, this.CONCURRENCY)
     if (this.pending < this.CONCURRENCY) {
       this.pending++
-      const query = 'INSERT INTO leak_2017_41g_2 (email, pass) VALUES (?, ?)'
-      connection.execute(query, [acc.email, acc.pass])
-        .then(() => {
-          // console.log('Query success')
-          this.pending--
-          if (this.bufferAcc) {
-            // console.log('Processing buffered query')
-            this.save(this.bufferAcc, this.bufferCb)
-          }
-        })
+      // INSERT DATA HERE
+      MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+          var dbo = db.db("leaks");
+          var myobj = { email: acc.email, passwd: acc.pass };
+          dbo.collection("leaksnode").insertOne(myobj, function(err, res) {
+        if (err) throw err;
+          //console.log(acc.email);
+          db.close();
+        });
+      });
 
       if (this.bufferAcc) {
         this.bufferAcc = null
@@ -123,15 +125,6 @@ class Parser extends Writable {
 
 async function main() {
   console.log('Starting parsing 41G 😎🔥')
-
-  connection = await mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : 'p0wned',
-    database : 'leaks',
-    charset: 'utf8',
-  })
-  console.log('Connected to DB')
 
   bar = new CliProgress.Bar({
     format: '{bar} {percentage}% | ETA: {eta_formatted} | {value}/{total}'
