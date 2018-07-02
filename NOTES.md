@@ -1,0 +1,17 @@
+The idea is create a leaks parser in different languages to compare what are the best technologies for this type of work.
+
+This project has been made for educational purposes.
+PHP and Bash scripts where made by @mrebola and the nodejs ones where made by @psypersky
+
+This is an ongoing project, more updates soon.
+
+BASH/MongoDB:
+Parser
+Pathgenerator
+
+NODE/Mysql:
+Parser
+
+PHP/Mysql:
+Web search engine for the query.sh script 
+Parser
