@@ -1,13 +1,6 @@
-ssh root@167.99.185.245
+ssh root@x.x.x.x
 
 # Notes
-
-mysql --user=root --password leaks
-p0wned
-
-show tables;
-leak_2017_41g
-
 __Count files__
 find ../breaches/BreachCompilation/data | sort | wc -l
 
